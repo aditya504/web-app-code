@@ -4,9 +4,9 @@ trigger:
     - main
 
 variables:
-  ServiceConnectionName: 'YourServiceConnectionName'
-  bk-rg-name: 'terraform-rg'
-  bk-str-account-name: 'tfstate'
+  ServiceConnectionName: 'Azure-Subscription-1'
+  bk-rg-name: 'testing-terraform-code'
+  bk-str-account-name: 'testsa504504'
   bk-container-name: 'tfcontainer'
 
 pool:
