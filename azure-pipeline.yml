@@ -15,7 +15,7 @@ pool:
 stages:
 - stage: plan_dev
   jobs:
-  - template: azure_jobs/plan.yml@pipelineJobs
+  - template: plan.yml@azure_jobs
     parameters:
       env: dev
 
@@ -23,13 +23,13 @@ stages:
   dependsOn: plan_dev
   condition: succeeded('plan_dev')
   jobs:
-  - template: azure_jobs/deploy.yml@pipelineJobs
+  - template: deploy.yml@azure_jobs
     parameters:
       env: dev
 
 - stage: plan_uat
   jobs:
-  - template: azure_jobs/plan.yml@pipelineJobs
+  - template: plan.yml@azure_jobs
     parameters:
       env: uat
 
@@ -37,13 +37,13 @@ stages:
   dependsOn: plan_uat
   condition: succeeded('plan_uat')
   jobs:
-  - template: azure_jobs/deploy.yml@pipelineJobs
+  - template: deploy.yml@azure_jobs
     parameters:
       env: uat
 
 - stage: plan_prod
   jobs:
-  - template: azure_jobs/plan.yml@pipelineJobs
+  - template: plan.yml@azure_jobs
     parameters:
       env: prod
 
@@ -51,13 +51,13 @@ stages:
   dependsOn: plan_prod
   condition: succeeded('plan_prod')
   jobs:
-  - template: azure_jobs/deploy.yml@pipelineJobs
+  - template: deploy.yml@azure_jobs
     parameters:
       env: prod
 
 - stage: destroy
   condition: always()
   jobs:
-  - template: azure_jobs/destroy.yml@pipelineJobs
+  - template: destroy.yml@azure_jobs
     parameters:
       env: dev
