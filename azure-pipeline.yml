@@ -3,6 +3,13 @@ trigger:
     include:
     - main
 
+resources:
+  repositories:
+    - repository: azure_jobs
+      type: git
+      name: azure-pipeline-jobs
+      ref: main
+
 variables:
   ServiceConnectionName: 'Azure-Subscription-1'
   bk-rg-name: 'testing-terraform-code'
@@ -15,7 +22,7 @@ pool:
 stages:
 - stage: plan_dev
   jobs:
-  - template: plan.yml@azure_jobs
+  - template: plan.yml@azure_jobs	
     parameters:
       env: dev
 
@@ -23,13 +30,13 @@ stages:
   dependsOn: plan_dev
   condition: succeeded('plan_dev')
   jobs:
-  - template: deploy.yml@azure_jobs
+  - template: azure-pipeline-jobs/deploy.yml@azure_jobs
     parameters:
       env: dev
 
 - stage: plan_uat
   jobs:
-  - template: plan.yml@azure_jobs
+  - template: azure-pipeline-jobs/plan.yml@azure_jobs
     parameters:
       env: uat
 
@@ -37,13 +44,13 @@ stages:
   dependsOn: plan_uat
   condition: succeeded('plan_uat')
   jobs:
-  - template: deploy.yml@azure_jobs
+  - template: azure-pipeline-jobs/deploy.yml@azure_jobs
     parameters:
       env: uat
 
 - stage: plan_prod
   jobs:
-  - template: plan.yml@azure_jobs
+  - template: azure-pipeline-jobs/plan.yml@azure_jobs
     parameters:
       env: prod
 
@@ -51,13 +58,13 @@ stages:
   dependsOn: plan_prod
   condition: succeeded('plan_prod')
   jobs:
-  - template: deploy.yml@azure_jobs
+  - template: azure-pipeline-jobs/deploy.yml@azure_jobs
     parameters:
       env: prod
 
 - stage: destroy
   condition: always()
   jobs:
-  - template: destroy.yml@azure_jobs
+  - template: azure-pipeline-jobs/destroy.yml@azure_jobs
     parameters:
       env: dev
