@@ -7,8 +7,9 @@ resources:
   repositories:
     - repository: azure_jobs
       type: git
-      name: azure-pipeline-jobs
+      name: aditya504/web-app-code
       ref: main
+      endpoint: github-access
 
 variables:
   ServiceConnectionName: 'Azure-Subscription-1'
