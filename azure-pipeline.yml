@@ -7,7 +7,7 @@ resources:
   repositories:
     - repository: azure_jobs
       type: git
-      name: aditya504/web-app-code
+      name: aditya504/azure_jobs
       ref: refs/heads/main
       endpoint: github-access
 
